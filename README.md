@@ -22,7 +22,7 @@ of a fish in a subsequent fishing event.
 You can install the development version of fisherySim like so:
 
 ``` r
-remotes::install_git("...")
+remotes::install_git("https://github.com/Pacific-salmon-assess/fisherySim.git")
 
 ```
 
