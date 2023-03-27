@@ -86,7 +86,7 @@ sit_unmark_plot <-
   geom_abline(intercept = 0, slope = 1) +
   labs(
     x = "Simulated Unmarked Cohort Mortalities",
-    y = "MFA Unmarked Cohort Mortalities",
+    y = "SIT Unmarked Cohort Mortalities",
     title = "SIT Method Unmarked Mortalities"
   )
 
