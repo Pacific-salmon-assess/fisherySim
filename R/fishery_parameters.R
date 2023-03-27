@@ -1,4 +1,6 @@
 
+#' Non-Selective Fishery with no disprotionate release based on adclip status
+#'
 #' @export
 NonSelectiveFishery <-
   list(catch = 1000,
@@ -11,6 +13,8 @@ NonSelectiveFishery <-
        clip_release_rate = 0.1,
        prop_non_legal_size = 0.2)
 
+#' Mixed Adipose Clipped Selective Fishery with higher URE and MRE
+#'
 #' @export
 MixedSelectiveFishery <-
   list(catch = 1000,
@@ -24,6 +28,8 @@ MixedSelectiveFishery <-
        prop_non_legal_size = 0.1)
 
 
+#' Adipose Clip Selective Fishery with some URE and MRE
+#'
 #' @export
 AdclipSelectiveFishery <-
   list(catch = 1000,

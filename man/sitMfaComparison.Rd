@@ -2,10 +2,15 @@
 % Please edit documentation in R/example.R
 \name{sitMfaComparison}
 \alias{sitMfaComparison}
-\title{Single Index Tag Method}
+\title{Run Simulation with results Compared to SIT and MFA methods}
 \usage{
 sitMfaComparison(iterations = 500, cohort_pns = 0.2)
 }
+\arguments{
+\item{iterations}{Number of independent simulations to run}
+
+\item{cohort_pns}{Cohort Proportion Non-Legal Size}
+}
 \description{
-Single Index Tag Method
+Run Simulation with results Compared to SIT and MFA methods
 }

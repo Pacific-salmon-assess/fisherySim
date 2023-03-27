@@ -1,5 +1,7 @@
-#' Single Index Tag Method
+#' Run Simulation with results Compared to SIT and MFA methods
 #'
+#' @param iterations Number of independent simulations to run
+#' @param cohort_pns Cohort Proportion Non-Legal Size
 #'
 #' @export
 #'

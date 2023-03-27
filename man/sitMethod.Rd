@@ -37,10 +37,6 @@ sitMethod(
 \item{escapement_unmark_cohort}{Mortality rate of non-legal size releases}
 
 \item{terminal_unmark_cohort}{Mortality rate of non-legal size releases}
-
-\item{legal_release_mark}{Legal released marked catch in the fishery}
-
-\item{kept_unmark}{Total kept unmarked catch in the fishery}
 }
 \value{
 Fish/row number of a fish that is encountered in a fishery

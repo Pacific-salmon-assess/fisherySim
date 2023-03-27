@@ -102,8 +102,6 @@ mfaMethod <- function(kept_mark,
 #' Single Index Tag Method
 #'
 #' @param kept_mark Total kept marked catch in the fishery
-#' @param legal_release_mark Legal released marked catch in the fishery
-#' @param kept_unmark Total kept unmarked catch in the fishery
 #' @param legal_release_unmark Legal released unmarked catch in the fishery
 #' @param kept_mark_cohort Kept mark catch of the cohort (e.g. CWT estimate)
 #' @param escapement_mark_cohort Abundance of marked cohort after the fishery

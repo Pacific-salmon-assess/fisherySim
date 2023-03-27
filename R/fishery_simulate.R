@@ -1,9 +1,16 @@
+#' Outcome of the fishing event was No Encounter
 #' @export
 OutcomeNoEncounter <- "NO ENCOUNTER"
+
+#' Outcome of the fishing event was Drop-Off
 #' @export
 OutcomeDropOff <- "DROP-OFF"
+
+#' Outcome of the fishing event was Released fish
 #' @export
 OutcomeReleased <- "RELEASED"
+
+#' Outcome of the fishing event was Kept Fish
 #' @export
 OutcomeKept <- "KEPT"
 
@@ -19,6 +26,8 @@ OutcomeKept <- "KEPT"
 #' @return A data frame with `cohort_size` rows
 #'
 #' @export
+#'
+#' @importFrom stats runif
 #'
 createCohort <- function(adclip_rate = 0.5,
                          pns = 0.2,
@@ -236,6 +245,8 @@ sequencialFisherySim <- function(cohort_df,
 #' @return Fish/row number of a fish that is encountered in a fishery
 #'
 #' @export
+#'
+#' @importFrom stats aggregate
 #'
 summarizeFishery <- function(fishery_df) {
   fishery_df$is_cohort <- !is.na(fishery_df$fish_number)
