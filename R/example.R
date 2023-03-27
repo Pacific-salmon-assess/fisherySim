@@ -5,14 +5,14 @@
 #'
 #' @importFrom furrr future_map_dfr furrr_options
 #' @importFrom future plan multisession
-sitMfaComparison <- function(iterations = 500) {
+sitMfaComparison <- function(iterations = 500, cohort_pns = 0.2) {
   run_fishery <- function(catch, fishery_params) {
     fishery_params$catch <- catch
 
     sim_result <-
       createCohort(cohort_size = 50000L,
                    adclip_rate = 0.5,
-                   pns = 0.5) |>
+                   pns = cohort_pns) |>
       sequencialFisherySim(cohort_encounter_rate = 0.3,
                            fishery_params = fishery_params)
 
@@ -83,16 +83,16 @@ sitMfaComparison <- function(iterations = 500) {
     colnames(sit_est_fishery) <- paste0("sit_", colnames(sit_est_fishery))
 
     mfa_est_fishery <-
-      mfaMethod(kept_mark,
-                legal_release_mark,
-                kept_unmark,
-                legal_release_unmark,
-                kept_mark_cohort,
-                sim_post_fishery_mark_cohort,
-                fishery_params$legal_release_mort_rate,
-                fishery_params$non_legal_release_mort_rate,
-                attr(sim_result$cohort_df, "pns"),
-                fishery_params$drop_off_rate,
+      mfaMethod(kept_mark = kept_mark,
+                legal_release_mark = legal_release_mark,
+                kept_unmark = kept_unmark,
+                legal_release_unmark = legal_release_unmark,
+                kept_mark_cohort = kept_mark_cohort,
+                escapement_mark_cohort = sim_post_fishery_mark_cohort,
+                legal_release_mort_rate = fishery_params$legal_release_mort_rate,
+                nonlegal_release_mort_rate = fishery_params$non_legal_release_mort_rate,
+                cohort_prop_nonlegal = attr(sim_result$cohort_df, "pns"),
+                drop_off_rate = fishery_params$drop_off_rate,
                 escapement_unmark_cohort = sim_post_fishery_unmark_cohort)
 
     colnames(mfa_est_fishery) <- paste0("mfa_", colnames(mfa_est_fishery))

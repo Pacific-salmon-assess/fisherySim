@@ -4,7 +4,7 @@
 \alias{sitMfaComparison}
 \title{Single Index Tag Method}
 \usage{
-sitMfaComparison(iterations = 500)
+sitMfaComparison(iterations = 500, cohort_pns = 0.2)
 }
 \description{
 Single Index Tag Method

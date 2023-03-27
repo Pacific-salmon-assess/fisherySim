@@ -26,7 +26,7 @@ createCohort <- function(adclip_rate = 0.5,
   cohort_df <-
     data.frame(fish_number = seq_len(cohort_size),
                is_clipped = runif(cohort_size) < adclip_rate,
-               is_legal_size = runif(cohort_size) < pns,
+               is_legal_size = runif(cohort_size) > pns,
                is_dead = FALSE)
 
   attr(cohort_df, "pns") <- pns
