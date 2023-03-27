@@ -1,11 +1,11 @@
 
-# fisherySim
+# Simple Fishery Simulator
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of fisherySim is to provide a simulator that passes a finite size cohort
-through a fisher with adipose and size selective removal.  The package can 
+The goal of fisherySim is to provide a simple simulator that passes a finite sized cohort
+through a fishery with adipose and size selective removal.  The package can 
 stochastically create a simulated cohort based on a probability of being adipose-clipped and
 a probability of being non-legal size.
 
@@ -14,10 +14,8 @@ simulates individual fishing events based on probability of the fishing dropping
 released by fisher, or kept by fisher based on adipose clip status and size category.  
 Each of these event outcomes will then have a probability of a mortality based on the outcome.
 Releases of legal-sized fish can have a release mortality rate different from releases
-of non-legal-sized fish.
-
-The mortality of a fish from a previous can affect the availability of a fish in a subsequent 
-fishing event.  
+of non-legal-sized fish.  The mortality of a fish from a previous can affect the availability 
+of a fish in a subsequent fishing event.
 
 ## Installation
 
