@@ -1,8 +1,11 @@
-
-NoEncounter <- "NO ENCOUNTER"
-DropOff <- "DROP-OFF"
-Released <- "RELEASED"
-Kept <- "KEPT"
+#' @export
+OutcomeNoEncounter <- "NO ENCOUNTER"
+#' @export
+OutcomeDropOff <- "DROP-OFF"
+#' @export
+OutcomeReleased <- "RELEASED"
+#' @export
+OutcomeKept <- "KEPT"
 
 #' Create Cohort Data Frame
 #'
@@ -14,6 +17,7 @@ Kept <- "KEPT"
 #' @param cohort_size Size of the cohort
 #'
 #' @return A data frame with `cohort_size` rows
+#'
 #' @export
 #'
 createCohort <- function(adclip_rate = 0.5,
@@ -24,6 +28,9 @@ createCohort <- function(adclip_rate = 0.5,
                is_clipped = runif(cohort_size) < adclip_rate,
                is_legal_size = runif(cohort_size) < pns,
                is_dead = FALSE)
+
+  attr(cohort_df, "pns") <- pns
+  attr(cohort_df, "adclip_rate") <- adclip_rate
 
   return(cohort_df)
 }
@@ -51,8 +58,6 @@ selectFish <- function(cohort_df, potential_fish) {
     # small component of the overall cohort and random fish will likely be alive
     fish_number <- as.integer(runif(1, min = 1, max = nrow(cohort_df)))
 
-
-
     if(find > nrow(cohort_df)) {
       #if we search randomly for a fish as many times as there are fish
       #in the cohort, this is likely very few or no fish left
@@ -60,32 +65,38 @@ selectFish <- function(cohort_df, potential_fish) {
     }
     find <- find + 1
   }
-
   return(fish_number)
 }
 
 #' Sequential Fishery Simulation
 #'
 #' Sequentially simulate a fishery up to a total kept catch based on individual fishing
-#' (ie. kept or released) events.  Events may be slightly more or less to accommodate
+#' (i.e. kept or released) events.  Events may be slightly more or less to accommodate
 #' the random probability of drop-off events.  If a fish from the cohort dies, it is
 #' no longer available for selection in the fishery
 #'
 #' @param cohort_df Cohort data frame
-#' @param fish_event A random number to try as first fish
+#' @param cohort_encounter_rate Encounter rate of the cohort
+#' @param fishery_params Fishery parameters
 #'
 #' @return Fish/row number of a fish that is encountered in a fishery
 #'
+#' @export
+#'
 sequencialFisherySim <- function(cohort_df,
                                  cohort_encounter_rate = 0.7,
-                                 fishery_params) {
+                                 fishery_params = NULL) {
+
+  if(is.null(fishery_params)) {
+    stop("No Fishery Parameters provided for the fishery simulation")
+  }
   event_seq <- seq_len(fishery_params$catch * 10)
   event_len <- length(event_seq)
 
   total_kept_catch <- 0L
-  outcomes <- rep(NA_character_, event_len)
+  outcome <- rep(NA_character_, event_len)
   mortality <- rep(NA, event_len)
-  fish_numbers <- rep(NA_integer_, event_len)
+  fish_number <- rep(NA_integer_, event_len)
 
   potential_fish <- as.integer(runif(event_len, min = 1, max = nrow(cohort_df)))
   encounter_event <- runif(event_len)
@@ -117,7 +128,7 @@ sequencialFisherySim <- function(cohort_df,
       cohort_fish_number <- NA_integer_
     }
 
-    fish_numbers[event_id] <- cohort_fish_number
+    fish_number[event_id] <- cohort_fish_number
 
     #The fish was caught, we need to figure out if it was kept or released
     if(!is.na(cohort_fish_number)) {
@@ -139,7 +150,7 @@ sequencialFisherySim <- function(cohort_df,
 
     if(drop_event[event_id] <= fishery_params$drop_off_rate) {
       #fish dropped off
-      outcomes[event_id] <- DropOff
+      outcome[event_id] <- OutcomeDropOff
       if(mort_event[event_id] <= fishery_params$drop_off_mort_rate) {
         #Fish died after dropping off
         mortality[event_id] <- TRUE
@@ -153,7 +164,7 @@ sequencialFisherySim <- function(cohort_df,
     } else {
       if(is_legal_size[event_id] == FALSE) {
         #If the fish is not legal, then 100% chance of release
-        outcomes[event_id] <- Released
+        outcome[event_id] <- OutcomeReleased
 
         if(mort_event[event_id] <= fishery_params$non_legal_release_mort_rate) {
           #The fish died immediately after being released
@@ -168,12 +179,12 @@ sequencialFisherySim <- function(cohort_df,
       } else {
         #For legal fish, select the release rate based on clip status
         fish_release_rate <- ifelse(is_clipped[event_id],
-                                fishery_params$clip_release_rate,
-                                fishery_params$unclip_release_rate)
+                                    fishery_params$clip_release_rate,
+                                    fishery_params$unclip_release_rate)
 
         if(rel_event[event_id] <= fish_release_rate) {
           #The fish was released
-          outcomes[event_id] <- Released
+          outcome[event_id] <- OutcomeReleased
           if(mort_event[event_id] <= fishery_params$legal_release_mort_rate) {
             #The fish died immediately after being released
             mortality[event_id] <- TRUE
@@ -187,7 +198,7 @@ sequencialFisherySim <- function(cohort_df,
         } else {
           #The fish was kept and died
           total_kept_catch <- total_kept_catch + 1L
-          outcomes[event_id] <- Kept
+          outcome[event_id] <- OutcomeKept
           mortality[event_id] <- TRUE
           if(!is.na(cohort_fish_number)) {
             #Kill the fish in the cohort data frame
@@ -198,24 +209,20 @@ sequencialFisherySim <- function(cohort_df,
     }
   }
 
-  if(!is.na(outcomes[length(outcomes)])) {
+  if(!is.na(outcome[length(outcome)])) {
     stop("Ran out of fishing events :-(")
   }
 
   fishery_df <-
     data.frame(event_id = event_seq,
-               potential_fish = potential_fish,
-               encounter_event = encounter_event,
-               drop_event = drop_event,
-               rel_event = rel_event,
-               mort_event = mort_event,
-               clip_event = clip_event,
                is_clipped  = is_clipped,
                is_legal_size = is_legal_size,
-               outcome = outcomes,
+               outcome = outcome,
                mortality = mortality,
-               fish_number = fish_numbers) |>
-    filter(!is.na(outcome))
+               fish_number = fish_number)
+
+  #remove empty fishing event rows that had no outcome
+  fishery_df <- fishery_df[!is.na(fishery_df$outcome),]
 
   return(list(fishery_df = fishery_df, cohort_df = cohort_df))
 }
@@ -224,19 +231,24 @@ sequencialFisherySim <- function(cohort_df,
 #'
 #' Summarize the individual fishing events from a simulated fishery
 #'
-#' @param cohort_df Cohort data frame
-#' @param fish_event A random number to try as first fish
+#' @param fishery_df Data frame of all fishing events from a simulation
 #'
 #' @return Fish/row number of a fish that is encountered in a fishery
 #'
+#' @export
+#'
 summarizeFishery <- function(fishery_df) {
+  fishery_df$is_cohort <- !is.na(fishery_df$fish_number)
+  fishery_df$events <- 1L
   total_catch <-
-    fishery_df |>
-    mutate(is_cohort = if_else(is.na(fish_number), FALSE, TRUE)) |>
-    group_by(outcome, is_cohort, is_clipped, is_legal_size) |>
-    summarize(mortality = sum(mortality),
-              events = n(),
-              .groups = "drop")
+    aggregate(fishery_df[,"events"],
+              list(outcome = fishery_df$outcome,
+                   is_cohort = fishery_df$is_cohort,
+                   is_clipped = fishery_df$is_clipped,
+                   is_legal_size = fishery_df$is_legal_size),
+              FUN = "sum")
+
+  colnames(total_catch)[colnames(total_catch) == "x"] <- "total"
 
   return(total_catch)
 }
