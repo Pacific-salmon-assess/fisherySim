@@ -38,14 +38,14 @@ mfaMethod(
 
 \item{cohort_prop_nonlegal}{Proportion of cohort that is not legal size}
 
-\item{drop_off_rate}{Mortality rate of non-legal size releases}
+\item{drop_off_rate}{Drop-off and mortality rate of caught fish}
 
-\item{escapement_unmark_cohort}{Mortality rate of non-legal size releases}
+\item{escapement_unmark_cohort}{Unmarked cohort size after the fishery}
 
-\item{terminal_unmark_cohort}{Mortality rate of non-legal size releases}
+\item{terminal_unmark_cohort}{Unmarked cohort size before the fishery}
 }
 \value{
-Fish/row number of a fish that is encountered in a fishery
+A data.frame with the cohort size before and after the fisher based on adclip status
 }
 \description{
 Mixed Fishery Adjustment Method

@@ -9,11 +9,11 @@
 #' @param legal_release_mort_rate Mortality rate of legal size releases
 #' @param nonlegal_release_mort_rate Mortality rate of non-legal size releases
 #' @param cohort_prop_nonlegal Proportion of cohort that is not legal size
-#' @param drop_off_rate Mortality rate of non-legal size releases
-#' @param escapement_unmark_cohort Mortality rate of non-legal size releases
-#' @param terminal_unmark_cohort Mortality rate of non-legal size releases
+#' @param drop_off_rate Drop-off and mortality rate of caught fish
+#' @param escapement_unmark_cohort Unmarked cohort size after the fishery
+#' @param terminal_unmark_cohort Unmarked cohort size before the fishery
 #'
-#' @return Fish/row number of a fish that is encountered in a fishery
+#' @return A data.frame with the cohort size before and after the fisher based on adclip status
 #'
 #' @export
 #'
@@ -108,11 +108,11 @@ mfaMethod <- function(kept_mark,
 #' @param legal_release_mort_rate Mortality rate of legal size releases
 #' @param nonlegal_release_mort_rate Mortality rate of non-legal size releases
 #' @param cohort_prop_nonlegal Proportion of cohort that is not legal size
-#' @param drop_off_rate Mortality rate of non-legal size releases
-#' @param escapement_unmark_cohort Mortality rate of non-legal size releases
-#' @param terminal_unmark_cohort Mortality rate of non-legal size releases
+#' @param drop_off_rate Drop-off and mortality rate of caught fish
+#' @param escapement_unmark_cohort Unmarked cohort size after the fishery
+#' @param terminal_unmark_cohort Unmarked cohort size before the fishery
 #'
-#' @return Fish/row number of a fish that is encountered in a fishery
+#' @return A data.frame with the cohort size before and after the fisher based on adclip status
 #'
 #' @export
 #'
