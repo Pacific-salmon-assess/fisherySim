@@ -3,7 +3,7 @@
 \docType{data}
 \name{NonSelectiveFishery}
 \alias{NonSelectiveFishery}
-\title{Non-Selective Fishery with no disprotionate release based on adclip status}
+\title{Non-Selective Fishery with no disproportionate release based on adclip status}
 \format{
 An object of class \code{list} of length 9.
 }
@@ -11,6 +11,6 @@ An object of class \code{list} of length 9.
 NonSelectiveFishery
 }
 \description{
-Non-Selective Fishery with no disprotionate release based on adclip status
+Non-Selective Fishery with no disproportionate release based on adclip status
 }
 \keyword{datasets}

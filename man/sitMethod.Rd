@@ -8,12 +8,14 @@ sitMethod(
   kept_mark,
   legal_release_unmark,
   kept_mark_cohort,
-  escapement_mark_cohort,
   legal_release_mort_rate,
   nonlegal_release_mort_rate,
+  legal_drop_off_mort_rate,
+  nonlegal_drop_off_mort_rate,
   cohort_prop_nonlegal,
-  drop_off_rate,
+  escapement_mark_cohort = NULL,
   escapement_unmark_cohort = NULL,
+  terminal_mark_cohort = NULL,
   terminal_unmark_cohort = NULL
 )
 }
@@ -24,17 +26,21 @@ sitMethod(
 
 \item{kept_mark_cohort}{Kept mark catch of the cohort (e.g. CWT estimate)}
 
-\item{escapement_mark_cohort}{Abundance of marked cohort after the fishery}
-
 \item{legal_release_mort_rate}{Mortality rate of legal size releases}
 
 \item{nonlegal_release_mort_rate}{Mortality rate of non-legal size releases}
 
+\item{legal_drop_off_mort_rate}{Drop-off and mortality rate of legal caught fish}
+
+\item{nonlegal_drop_off_mort_rate}{Drop-off and mortality rate of non-legal caught fish}
+
 \item{cohort_prop_nonlegal}{Proportion of cohort that is not legal size}
 
-\item{drop_off_rate}{Drop-off and mortality rate of caught fish}
+\item{escapement_mark_cohort}{Marked size cohort after the fishery}
 
 \item{escapement_unmark_cohort}{Unmarked cohort size after the fishery}
+
+\item{terminal_mark_cohort}{Marked cohort size before the fishery}
 
 \item{terminal_unmark_cohort}{Unmarked cohort size before the fishery}
 }

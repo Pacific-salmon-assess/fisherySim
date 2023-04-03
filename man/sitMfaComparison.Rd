@@ -4,10 +4,16 @@
 \alias{sitMfaComparison}
 \title{Run Simulation with results Compared to SIT and MFA methods}
 \usage{
-sitMfaComparison(iterations = 500, cohort_pns = 0.2)
+sitMfaComparison(
+  iterations = 500,
+  fishery_params = AdclipSelectiveFishery,
+  cohort_pns = 0.2
+)
 }
 \arguments{
 \item{iterations}{Number of independent simulations to run}
+
+\item{fishery_params}{Fishery parameters used for the simulations}
 
 \item{cohort_pns}{Cohort Proportion Non-Legal Size}
 }

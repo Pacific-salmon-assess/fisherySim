@@ -1,14 +1,14 @@
 
-#' Non-Selective Fishery with no disprotionate release based on adclip status
+#' Non-Selective Fishery with no disproportionate release based on adclip status
 #'
 #' @export
 NonSelectiveFishery <-
   list(catch = 1000,
        adclip_rate  = 0.4,
        legal_release_mort_rate = 0.15,
-       non_legal_release_mort_rate = 0.15,
-       drop_off_rate = 0.05,
-       drop_off_mort_rate = 1.0,
+       nonlegal_release_mort_rate = 0.15,
+       legal_drop_off_mort_rate = 0.35,
+       nonlegal_drop_off_mort_rate = 0.35,
        unclip_release_rate = 0.1,
        clip_release_rate = 0.1,
        prop_non_legal_size = 0.2)
@@ -20,9 +20,9 @@ MixedSelectiveFishery <-
   list(catch = 1000,
        adclip_rate  = 0.4,
        legal_release_mort_rate = 0.15,
-       non_legal_release_mort_rate = 0.15,
-       drop_off_rate = 0.05,
-       drop_off_mort_rate = 1.0,
+       nonlegal_release_mort_rate = 0.15,
+       legal_drop_off_mort_rate = 0.35,
+       nonlegal_drop_off_mort_rate = 0.35,
        unclip_release_rate = 0.7,
        clip_release_rate = 0.3,
        prop_non_legal_size = 0.1)
@@ -35,13 +35,43 @@ AdclipSelectiveFishery <-
   list(catch = 1000,
        adclip_rate  = 0.4,
        legal_release_mort_rate = 0.15,
-       non_legal_release_mort_rate = 0.15,
-       drop_off_rate = 0.05,
-       drop_off_mort_rate = 1.0,
+       nonlegal_release_mort_rate = 0.15,
+       legal_drop_off_mort_rate = 0.35,
+       nonlegal_drop_off_mort_rate = 0.35,
        unclip_release_rate = 0.9,
        clip_release_rate = 0.1,
        prop_non_legal_size = 0.1)
 
+
+
+#' DGM Preterminal Fishery Parameters used for the CYER report
+#'
+#' @export
+DgmPreTerminal <-
+  list(catch = 1000,
+       adclip_rate  = 0.5,
+       legal_release_mort_rate = 0.25,
+       nonlegal_release_mort_rate = 0.35,
+       legal_drop_off_mort_rate = 0.05,
+       nonlegal_drop_off_mort_rate = 0.05,
+       unclip_release_rate = 0.9,
+       clip_release_rate = 0.1,
+       prop_non_legal_size = 0.1)
+
+
+#' DGM Terminal Fishery Parameters used for the CYER report
+#'
+#' @export
+DgmTerminal <-
+  list(catch = 1000,
+       adclip_rate  = 0.5,
+       legal_release_mort_rate = 0.20,
+       nonlegal_release_mort_rate = 0.5,
+       legal_drop_off_mort_rate = 0.05,
+       nonlegal_drop_off_mort_rate = 0.5,
+       unclip_release_rate = 0.9,
+       clip_release_rate = 0.1,
+       prop_non_legal_size = 0.1)
 
 #' Setup Fishery Parameters
 #'
@@ -51,9 +81,9 @@ AdclipSelectiveFishery <-
 #' @param catch Total kept catch that the fishery runs until achieving
 #' @param adclip_rate Adipose-clip rate of non-cohort fish in the fishery
 #' @param legal_release_mort_rate Mortality rate of legal size releases
-#' @param non_legal_release_mort_rate Mortality rate of non-legal size releases
-#' @param drop_off_rate Drop-off rate of fish
-#' @param drop_off_mort_rate Mortality rate of drop-off fish
+#' @param nonlegal_release_mort_rate Mortality rate of non-legal size releases
+#' @param legal_drop_off_mort_rate Drop-off mortality rate of legal size catch
+#' @param nonlegal_drop_off_mort_rate Drop-off mortality rate of non-legal size catch
 #' @param unclip_release_rate Release rate of non-adipose-clipped fish
 #' @param clip_release_rate Release rate of adipose-clipped fish
 #' @param prop_non_legal_size Proportion of non-cohort fish not legal size
@@ -66,9 +96,9 @@ AdclipSelectiveFishery <-
 setupFishery <- function (catch,
                           adclip_rate,
                           legal_release_mort_rate,
-                          non_legal_release_mort_rate,
-                          drop_off_rate,
-                          drop_off_mort_rate,
+                          nonlegal_release_mort_rate,
+                          legal_drop_off_mort_rate,
+                          nonlegal_drop_off_mort_rate,
                           unclip_release_rate,
                           clip_release_rate,
                           prop_non_legal_size) {
@@ -76,9 +106,9 @@ setupFishery <- function (catch,
     list(catch = catch,
          adclip_rate  = adclip_rate,
          legal_release_mort_rate = legal_release_mort_rate,
-         non_legal_release_mort_rate = non_legal_release_mort_rate,
-         drop_off_rate = drop_off_rate,
-         drop_off_mort_rate = drop_off_mort_rate,
+         nonlegal_release_mort_rate = nonlegal_release_mort_rate,
+         legal_drop_off_mort_rate = legal_drop_off_mort_rate,
+         nonlegal_drop_off_mort_rate = nonlegal_drop_off_mort_rate,
          unclip_release_rate = unclip_release_rate,
          clip_release_rate = clip_release_rate,
          prop_non_legal_size = prop_non_legal_size)

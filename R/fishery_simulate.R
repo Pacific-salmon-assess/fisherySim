@@ -157,25 +157,21 @@ sequencialFisherySim <- function(cohort_df,
       is_legal_size[event_id] <- legal_size_event[event_id] >= fishery_params$prop_non_legal_size
     }
 
-    if(drop_event[event_id] <= fishery_params$drop_off_rate) {
-      #fish dropped off
-      outcome[event_id] <- OutcomeDropOff
-      if(mort_event[event_id] <= fishery_params$drop_off_mort_rate) {
+    if(is_legal_size[event_id] == FALSE) {
+      #Fish caught is non-legal size
+      if(drop_event[event_id] <= fishery_params$nonlegal_drop_off_mort_rate) {
         #Fish died after dropping off
+        outcome[event_id] <- OutcomeDropOff
         mortality[event_id] <- TRUE
         if(!is.na(cohort_fish_number)) {
           #Kill the fish in the cohort data frame
           cohort_df$is_dead[cohort_fish_number] <- TRUE
         }
       } else {
-        mortality[event_id] <- FALSE
-      }
-    } else {
-      if(is_legal_size[event_id] == FALSE) {
         #If the fish is not legal, then 100% chance of release
         outcome[event_id] <- OutcomeReleased
 
-        if(mort_event[event_id] <= fishery_params$non_legal_release_mort_rate) {
+        if(mort_event[event_id] <= fishery_params$nonlegal_release_mort_rate) {
           #The fish died immediately after being released
           mortality[event_id] <- TRUE
           if(!is.na(cohort_fish_number)) {
@@ -184,6 +180,17 @@ sequencialFisherySim <- function(cohort_df,
           }
         } else {
           mortality[event_id] <- FALSE
+        }
+      }
+    } else {
+      #Fish caught is legal size
+      if(drop_event[event_id] <= fishery_params$legal_drop_off_mort_rate) {
+        #Fish died after dropping off
+        outcome[event_id] <- OutcomeDropOff
+        mortality[event_id] <- TRUE
+        if(!is.na(cohort_fish_number)) {
+          #Kill the fish in the cohort data frame
+          cohort_df$is_dead[cohort_fish_number] <- TRUE
         }
       } else {
         #For legal fish, select the release rate based on clip status

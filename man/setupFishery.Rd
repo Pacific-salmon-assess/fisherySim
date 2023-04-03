@@ -8,9 +8,9 @@ setupFishery(
   catch,
   adclip_rate,
   legal_release_mort_rate,
-  non_legal_release_mort_rate,
-  drop_off_rate,
-  drop_off_mort_rate,
+  nonlegal_release_mort_rate,
+  legal_drop_off_mort_rate,
+  nonlegal_drop_off_mort_rate,
   unclip_release_rate,
   clip_release_rate,
   prop_non_legal_size
@@ -23,11 +23,11 @@ setupFishery(
 
 \item{legal_release_mort_rate}{Mortality rate of legal size releases}
 
-\item{non_legal_release_mort_rate}{Mortality rate of non-legal size releases}
+\item{nonlegal_release_mort_rate}{Mortality rate of non-legal size releases}
 
-\item{drop_off_rate}{Drop-off rate of fish}
+\item{legal_drop_off_mort_rate}{Drop-off mortality rate of legal size catch}
 
-\item{drop_off_mort_rate}{Mortality rate of drop-off fish}
+\item{nonlegal_drop_off_mort_rate}{Drop-off mortality rate of non-legal size catch}
 
 \item{unclip_release_rate}{Release rate of non-adipose-clipped fish}
 
