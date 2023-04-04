@@ -68,7 +68,7 @@ DgmTerminal <-
        legal_release_mort_rate = 0.20,
        nonlegal_release_mort_rate = 0.5,
        legal_drop_off_mort_rate = 0.05,
-       nonlegal_drop_off_mort_rate = 0.5,
+       nonlegal_drop_off_mort_rate = 0.05,
        unclip_release_rate = 0.9,
        clip_release_rate = 0.1,
        prop_non_legal_size = 0.1)

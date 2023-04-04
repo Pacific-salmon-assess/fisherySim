@@ -2,6 +2,8 @@
 #'
 #' @param iterations Number of independent simulations to run
 #' @param fishery_params Fishery parameters used for the simulations
+#' @param cohort_encounter_rate Cohort encounter rate in the fishery
+#' @param cohort)size Cohort initial size
 #' @param cohort_pns Cohort Proportion Non-Legal Size
 #'
 #' @export
@@ -10,15 +12,17 @@
 #' @importFrom future plan multisession
 sitMfaComparison <- function(iterations = 500,
                              fishery_params = AdclipSelectiveFishery,
+                             cohort_encounter_rate = 0.6,
+                             cohort_size = 200000L,
                              cohort_pns = 0.2) {
   run_fishery <- function(catch, fishery_params) {
     fishery_params$catch <- catch
 
     sim_result <-
-      createCohort(cohort_size = 50000L,
+      createCohort(cohort_size = cohort_size,
                    adclip_rate = 0.5,
                    pns = cohort_pns) |>
-      sequencialFisherySim(cohort_encounter_rate = 0.3,
+      sequencialFisherySim(cohort_encounter_rate = cohort_encounter_rate,
                            fishery_params = fishery_params)
 
     fishery_summary <- summarizeFishery(sim_result$fishery_df)
@@ -116,16 +120,16 @@ sitMfaComparison <- function(iterations = 500,
     return(method_compare_df)
   }
 
-  #  future::plan(future::multisession, workers = 5)
-  #  method_compare_df <-
-  #    furrr::future_map_dfr(as.integer(runif(iterations, 100, 5000)),
-  #                          run_fishery,
-  #                          fishery_params = fishery_params,
-  #                          .options = furrr::furrr_options(seed = T))
-
+  future::plan(future::multisession, workers = 5)
   method_compare_df <-
-    purrr::map_dfr(as.integer(runif(iterations, 100, 5000)),
-                   run_fishery,
-                   fishery_params = fishery_params)
+    furrr::future_map_dfr(as.integer(runif(iterations, 100, 5000)),
+                          run_fishery,
+                          fishery_params = fishery_params,
+                          .options = furrr::furrr_options(seed = T))
+
+  #method_compare_df <-
+  #  purrr::map_dfr(as.integer(runif(iterations, 100, 5000)),
+  #                 run_fishery,
+  #                 fishery_params = fishery_params)
   return(method_compare_df)
 }
