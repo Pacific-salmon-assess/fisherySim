@@ -13,7 +13,7 @@
 #' @param escapement_mark_cohort Abundance of marked cohort after the fishery
 #' @param escapement_unmark_cohort Unmarked cohort size after the fishery
 #' @param terminal_mark_cohort Marked cohort size before the fishery
-#' @param terminal_unmark_cohort Unmarked cohort size before the fishery#'
+#' @param terminal_unmark_cohort Unmarked cohort size before the fishery
 #'
 #' @return A data.frame with the cohort size before and after the fisher based on adclip status
 #'

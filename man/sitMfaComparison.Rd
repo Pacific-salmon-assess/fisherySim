@@ -7,6 +7,8 @@
 sitMfaComparison(
   iterations = 500,
   fishery_params = AdclipSelectiveFishery,
+  cohort_encounter_rate = 0.6,
+  cohort_size = 200000L,
   cohort_pns = 0.2
 )
 }
@@ -15,7 +17,11 @@ sitMfaComparison(
 
 \item{fishery_params}{Fishery parameters used for the simulations}
 
+\item{cohort_encounter_rate}{Cohort encounter rate in the fishery}
+
 \item{cohort_pns}{Cohort Proportion Non-Legal Size}
+
+\item{cohort)size}{Cohort initial size}
 }
 \description{
 Run Simulation with results Compared to SIT and MFA methods
